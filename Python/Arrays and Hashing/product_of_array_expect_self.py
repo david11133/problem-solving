@@ -1,16 +1,19 @@
 def productExpectSelf(lst):
+    n = len(lst)
+    result = [1] * n
 
-  n = len(lst)
-  result = [1] * n
+    left_product = 1
+    for i in range(n):
+        result[i] = left_product
+        left_product *= lst[i]
 
-  prefix = 1
-  for i in range(n):
-    result[i] = prefix
-    prefix *= lst[i]
+    right_product = 1
+    for i in range(n - 1, -1, -1):
+        result[i] *= right_product
+        right_product *= lst[i]
 
-  suffix = 1
-  for i in range(n - 1, -1, -1):
-    result[i] *= suffix
-    suffix *= lst[i]
+    return result
 
-  return result
+
+print(productExpectSelf([1, 2, 3, 4]))  # [24, 12, 8, 6]
+print(productExpectSelf([1, 2, 3, 4, 5]))  # [120, 60, 40, 30, 24]
