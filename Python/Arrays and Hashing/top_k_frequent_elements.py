@@ -1,6 +1,19 @@
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        nums_dict = Counter(nums)
-        sorted_dict = sorted(nums_dict.items(), key=operator.itemgetter(1), reverse=True)
-        result = [item[0] for item in sorted_dict[:k]]
-        return result
+from collections import Counter 
+import heapq
+
+def topKFrequent(nums, k):
+    count = Counter(nums)
+    
+    heap = [(-freq, num) for num, freq in count.items()]
+
+    top_k = []
+
+    for _ in range(k):
+        freq, num = heapq.heappop(heap)
+        top_k.append(num)
+
+    return top_k
+
+print(topKFrequent([1, 1, 1, 2, 2, 3], 2))  # [1, 2]
+print(topKFrequent([1], 1))  # [1]
+print(topKFrequent([1, 2], 2))  # [1, 2]
